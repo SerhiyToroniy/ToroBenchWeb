@@ -5,31 +5,34 @@ export const HomePageComponent = () => {
   return (
     <>
       <div className="" style={{ height: '200px' }}>
-        Home Page
+        Ще ничого ту ниє богавам маттирного
       </div>
       <div className="" style={{ height: '200px' }}>
-        Home Page
-      </div>
-      <div className="" style={{ height: '200px' }}>
-        Home Page
-      </div>
-      <div className="" style={{ height: '200px' }}>
-        Home Page
-      </div>
-      <div className="" style={{ height: '200px' }}>
-        Home Page
-      </div>
-      <div className="" style={{ height: '200px' }}>
-        Home Page
-      </div>
-      <div className="" style={{ height: '200px' }}>
-        Home Page
-      </div>
-      <div className="" style={{ height: '200px' }}>
-        Home Page
-      </div>
-      <div className="" style={{ height: '200px' }}>
-        Home Page
+        Ще ничого ту ниє богавам маттирного
+      </div>      <div className="" style={{ height: '200px' }}>
+        Ще ничого ту ниє богавам маттирного
+      </div>      <div className="" style={{ height: '200px' }}>
+        Ще ничого ту ниє богавам маттирного
+      </div>      <div className="" style={{ height: '200px' }}>
+        Ще ничого ту ниє богавам маттирного
+      </div>      <div className="" style={{ height: '200px' }}>
+        Ще ничого ту ниє богавам маттирного
+      </div>      <div className="" style={{ height: '200px' }}>
+        Ще ничого ту ниє богавам маттирного
+      </div>      <div className="" style={{ height: '200px' }}>
+        Ще ничого ту ниє богавам маттирного
+      </div>      <div className="" style={{ height: '200px' }}>
+        Ще ничого ту ниє богавам маттирного
+      </div>      <div className="" style={{ height: '200px' }}>
+        Ще ничого ту ниє богавам маттирного
+      </div>      <div className="" style={{ height: '200px' }}>
+        Ще ничого ту ниє богавам маттирного
+      </div>      <div className="" style={{ height: '200px' }}>
+        Ще ничого ту ниє богавам маттирного
+      </div>      <div className="" style={{ height: '200px' }}>
+        Ще ничого ту ниє богавам маттирного
+      </div>      <div className="" style={{ height: '200px' }}>
+        Ще ничого ту ниє богавам маттирного
       </div>
     </>
   );
