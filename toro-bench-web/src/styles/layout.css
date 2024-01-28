@@ -107,7 +107,8 @@ p {
     text-align: center;
     padding: 20px 0;
     margin-top: auto;
-    height: 100dvh;
+    bottom: 0;
+    width: 100%;
 }
 
 .app-name {

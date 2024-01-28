@@ -1,6 +1,9 @@
 import { Outlet, Link } from "react-router-dom";
 
 export const Layout = () => {
+
+const currentYear = new Date().getFullYear();
+
     return (
         <>
             <header className="header">
@@ -27,7 +30,7 @@ export const Layout = () => {
                 <Outlet />
             </main>
 
-            <footer className="footer">Footer</footer>
+            <footer className="footer">&copy; ToroBenchWeb &mdash; {currentYear}. All rights reserved.</footer>
         </>
     );
 };
