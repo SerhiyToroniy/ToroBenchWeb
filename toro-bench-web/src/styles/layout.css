@@ -112,4 +112,7 @@ p {
 
 .app-name {
     margin-right: auto;
+    @media (max-width: 768px) {
+        display: none;
+    }
 }
