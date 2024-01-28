@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+}
+
+h1,
+h2,
+h3 {
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: white;
+    padding: 20px 0;
+    box-shadow: 0px 0px 30px -10px;
+    min-width: fit-content;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+}
+
+.nav-item {
+    margin-right: 20px;
+}
+
+.nav-link {
+    color: black;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #BE4EFD;
+}
+
+.nav {
+    display: flex;
+}
+
+.nav-logo {
+    width: 50px;
+    height: auto;
+    margin-right: 20px;
+}
+
+.main {
+    padding: 20px 20%;
+
+    @media (max-width: 768px) {
+        padding: 20px;
+    }
+}
+
+.footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: auto;
+    height: 100dvh;
+}
+
+.app-name {
+    margin-right: auto;
+}
