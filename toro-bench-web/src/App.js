@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { HomePageComponent, ScoresPageComponent, Layout, NotFound } from './pages';
+import { HomePageComponent, ScoresPageComponent, Layout, NotFound, BenchmarkPageComponent } from './pages';
 
 function App() {
   return (
@@ -10,6 +10,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePageComponent />} />
             <Route path="scores" element={<ScoresPageComponent />} />
+            <Route path="benchmark" element={<BenchmarkPageComponent />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

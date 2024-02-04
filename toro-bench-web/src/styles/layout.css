@@ -35,9 +35,12 @@ p {
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+    margin-left: calc(20% - 5px);
+    margin-right: 20%;
+
+    @media (max-width: 768px) {
+        margin: 0 15px;
+    }
 }
 
 .nav {
@@ -55,6 +58,9 @@ p {
     margin-right: 20px;
 }
 
+.nav-item:last-child {
+    margin-right: 0px;
+}
 
 .nav-link {
     color: black;
@@ -113,6 +119,7 @@ p {
 
 .app-name {
     margin-right: auto;
+
     @media (max-width: 768px) {
         display: none;
     }
