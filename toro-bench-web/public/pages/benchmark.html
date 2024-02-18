@@ -60,8 +60,8 @@
 
             if (scores[index]) {
                 console.log(displays[index] + ' : ' + scores[index]);
+                localStorage.setItem(displays[index], scores[index]);
                 nextTest();
-
             }
 
 

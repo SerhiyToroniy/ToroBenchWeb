@@ -1,6 +1,20 @@
+import { useState, useEffect } from "react";
 import React from "react";
 
+const TestNames = {
+  JavaScript: 'JavaScript',
+  Layout: 'Layout',
+  SVG: 'SVG',
+  Periodic: 'Periodic',
+  Tree: 'Tree',
+  Birds: 'Birds',
+  Invaders: 'Invaders',
+  Collision: 'Collision'
+};
+
 export const HomePageComponent = () => {
+
+  const [testResults, setTestResults] = useState({});
 
   const getGPUDetails = () => {
     const canvas = document.createElement('canvas');
@@ -58,28 +72,75 @@ export const HomePageComponent = () => {
     return name;
   }
 
+  useEffect(() => {
+    const storedResults = {};
+
+    Object.keys(TestNames).forEach(testName => {
+      const storedResult = localStorage.getItem(testName);
+      if (storedResult) {
+        storedResults[testName] = storedResult;
+      }
+    });
+
+    setTestResults(storedResults);
+  }, []);
+
+
+  const [wakeLockEnabled, setWakeLockEnabled] = useState(false);
+  const [wakeLockObj, setWakeLockObj] = useState(null);
+
+  useEffect(() => {
+    let wakeLock = null;
+
+    async function requestWakeLock() {
+      try {
+        wakeLock = await navigator.wakeLock.request('screen');
+
+        setWakeLockEnabled(true);
+        setWakeLockObj(wakeLock);
+        console.log('Wake lock activated');
+      } catch (err) {
+        console.error('Failed to activate wake lock:', err);
+      }
+    }
+
+    const wakeLockInterval = setInterval(() => {
+        requestWakeLock();
+    }, 1000 * 70);
+
+    return () => {
+      clearInterval(wakeLockInterval);
+      if (wakeLockObj) {
+        wakeLockObj.release();
+        console.log('Wake lock released');
+      }
+    };
+  }, []);
+
   return (
     <>
-      <section className="info">
-        <div className="info-container">
-          <h1>Device Info</h1>
-          <p><strong>Number of logical processors:</strong> {navigator.hardwareConcurrency}</p>
-          <p><strong>GPU:</strong> {getGPUDetails()}</p>
-          <p><strong>OS:</strong> {getOSName()}</p>
-          <p><strong>Browser:</strong> {getBrowserName()}</p>
+      <section className="background">
+        <img src={'./img/home_header.gif'} />
+        <div className="info">
+          <div className="info-container">
+            <h1>Device Info</h1>
+            <p><strong>Number of logical processors:</strong> {navigator.hardwareConcurrency}</p>
+            <p><strong>GPU:</strong> {getGPUDetails()}</p>
+            <p><strong>OS:</strong> {getOSName()}</p>
+            <p><strong>Browser:</strong> {getBrowserName()}</p>
+          </div>
+          <div className="info-container">
+            <h1>Last Results</h1>
+            {Object.entries(testResults).map(([test, result]) => (
+              <p key={test}><strong>{test}:</strong> {result}</p>
+            ))}
+          </div>
         </div>
-        <div className="info-container">
-          <h1>Last Results</h1>
-          <p><strong>Number of logical processors:</strong> {navigator.hardwareConcurrency}</p>
-          <p><strong>GPU:</strong> {getGPUDetails()}</p>
-          <p><strong>OS:</strong> {getOSName()}</p>
-          <p><strong>Browser:</strong> {getBrowserName()}</p>
-        </div>
-        <div className="info-container" style={{height: '500px'}}>
-
-        </div>
+      </section>
+      <section className="background" style={{height: '500px'}}>
+        
       </section>
     </>
   );
-
+  
 };

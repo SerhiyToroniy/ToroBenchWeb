@@ -99,11 +99,11 @@ p {
     margin-right: 20px;
 }
 
-.main {
-    padding: 20px 20%;
+section {
+    padding: 40px 20%;
 
     @media (max-width: 768px) {
-        padding: 20px;
+        padding: 40px 20px;
     }
 }
 
@@ -128,6 +128,7 @@ p {
 
 .app-name:hover {
     user-select: none;
+    cursor: pointer;
 }
 
 button {

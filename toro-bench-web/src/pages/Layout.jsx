@@ -1,16 +1,22 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 
 export const Layout = () => {
 
-const currentYear = new Date().getFullYear();
+    const navigate = useNavigate();
+
+    const currentYear = new Date().getFullYear();
+
+    const onAppNameClick = () => {
+        navigate('/');
+    }
 
     return (
         <>
             <header className="header">
                 <div className="container">
                     <nav className="nav">
-                        <a href="/" style={{height: '50px'}}><img src={'./logo512.png'} alt="Logo" className="nav-logo" /></a>
-                        <div className="app-name">ToroBenchWeb</div>
+                        <a style={{ height: '50px' }} onClick={onAppNameClick}><img src={'./logo512.png'} alt="Logo" className="nav-logo" /></a>
+                        <div className="app-name" onClick={onAppNameClick}>ToroBenchWeb</div>
                         <ul className="nav-list">
                             <li className="nav-item">
                                 <Link to="/scores" className="nav-link">Scores</Link>
