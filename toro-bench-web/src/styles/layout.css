@@ -119,8 +119,24 @@ p {
 
 .app-name {
     margin-right: auto;
+    font-weight: 900;
 
     @media (max-width: 768px) {
         display: none;
     }
+}
+
+.app-name:hover {
+    user-select: none;
+}
+
+button {
+    padding: 15px 20px;
+    border: none;
+    border-radius: 10px;
+    margin: 10px 0px;
+}
+
+button:hover {
+    cursor: pointer;
 }

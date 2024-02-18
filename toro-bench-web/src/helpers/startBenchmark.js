@@ -167,7 +167,6 @@ export function load() {
 }
 
 function onFinish() {
-    debugger
     $('.header').hide();
     var oTestFrame = document.getElementById('testframe');
     oTestFrame.src = "testscore.html";

@@ -68,6 +68,7 @@ function runRichards() {
 
   scheduler.schedule();
 
+
   if (scheduler.queueCount != EXPECTED_QUEUE_COUNT ||
       scheduler.holdCount != EXPECTED_HOLD_COUNT) {
     var msg =

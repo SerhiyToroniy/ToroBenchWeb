@@ -1,7 +1,6 @@
 
 body {
   background: #000;
-  background-image:url(../img/bg_01.png);
   background-repeat:no-repeat;
   background-size:cover;  
 }
@@ -41,7 +40,6 @@ body {
 
   position: absolute;
   top:40px;
-  left:140px;
 
   /*-webkit-animation: loading 2s infinite ease-in-out;
   -moz-animation: loading 2s infinite ease-in-out;
