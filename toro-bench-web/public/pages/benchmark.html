@@ -18,6 +18,9 @@
 
     <script type="text/javascript">
         var index = 0;
+        var wakeTimeMs = 10000;
+        let wakeLockEnabled = false;
+        let wakeLockObj = null;
         var tests = new Array();
         var displays = new Array();
         var factors = new Array();
@@ -35,6 +38,40 @@
             index = -1;
             nextTest();
         }
+
+        function requestWakeLock() {
+            navigator.wakeLock.request('screen')
+                .then((wakeLock) => {
+                    wakeLockEnabled = true;
+                    wakeLockObj = wakeLock;
+                    console.log('Wake lock activated');
+                })
+                .catch((err) => {
+                    console.error('Failed to activate wake lock:', err);
+                });
+        }
+
+        function WakeScreenUp() {
+            let wakeLockInterval;
+
+            function releaseWakeLock() {
+                clearInterval(wakeLockInterval);
+                if (wakeLockObj) {
+                    wakeLockObj.release();
+                    console.log('Wake lock released');
+                }
+            }
+
+            requestWakeLock();
+
+            wakeLockInterval = setInterval(() => {
+                requestWakeLock();
+            }, wakeTimeMs);
+
+            window.addEventListener('beforeunload', releaseWakeLock);
+        }
+
+        WakeScreenUp();
 
         function nextTest() {
             index++;

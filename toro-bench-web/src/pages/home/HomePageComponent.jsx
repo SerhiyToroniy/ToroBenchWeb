@@ -85,38 +85,6 @@ export const HomePageComponent = () => {
     setTestResults(storedResults);
   }, []);
 
-
-  const [wakeLockEnabled, setWakeLockEnabled] = useState(false);
-  const [wakeLockObj, setWakeLockObj] = useState(null);
-
-  useEffect(() => {
-    let wakeLock = null;
-
-    async function requestWakeLock() {
-      try {
-        wakeLock = await navigator.wakeLock.request('screen');
-
-        setWakeLockEnabled(true);
-        setWakeLockObj(wakeLock);
-        console.log('Wake lock activated');
-      } catch (err) {
-        console.error('Failed to activate wake lock:', err);
-      }
-    }
-
-    const wakeLockInterval = setInterval(() => {
-        requestWakeLock();
-    }, 1000 * 70);
-
-    return () => {
-      clearInterval(wakeLockInterval);
-      if (wakeLockObj) {
-        wakeLockObj.release();
-        console.log('Wake lock released');
-      }
-    };
-  }, []);
-
   return (
     <>
       <section className="background">
