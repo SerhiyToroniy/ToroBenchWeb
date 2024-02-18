@@ -120,7 +120,7 @@ export const HomePageComponent = () => {
   return (
     <>
       <section className="background">
-        <img src={'./img/home_header.gif'} />
+        <img src={'./img/home_header.jpg'} />
         <div className="info">
           <div className="info-container">
             <h1>Device Info</h1>
