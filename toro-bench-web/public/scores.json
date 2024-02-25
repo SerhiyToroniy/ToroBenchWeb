@@ -1,0 +1,20 @@
+[
+    {
+        "id": "test",
+        "rank": 1,
+        "logical_processors": 16,
+        "GPU": "AMD Radeon(TM) Graphics",
+        "OS": "Windows",
+        "browser": "Google Chrome",
+        "total": 0,
+        "JavaScript": 52239,
+        "layout": 1490,
+        "SVG": 7619,
+        "periodic": 4761,
+        "tree": 5184,
+        "birds": 6908,
+        "invaders": 5174,
+        "collision": 6765,
+        "detailed_info": "adwawd"
+    }
+]

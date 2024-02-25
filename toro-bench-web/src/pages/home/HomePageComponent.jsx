@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { DataGrid } from '@mui/x-data-grid';
 
-const TestNames = {
+export const TestNames = {
   JavaScript: 'JavaScript',
   Layout: 'Layout',
   SVG: 'SVG',
@@ -15,6 +17,7 @@ const TestNames = {
 export const HomePageComponent = () => {
 
   const [testResults, setTestResults] = useState({});
+  const navigate = useNavigate();
 
   const getGPUDetails = () => {
     const canvas = document.createElement('canvas');
@@ -36,6 +39,10 @@ export const HomePageComponent = () => {
       return match[1].trim();
     }
     return rendererString;
+  }
+
+  const onSeeMore = () => {
+    navigate('/scores');
   }
 
   const getOSName = () => {
@@ -83,6 +90,46 @@ export const HomePageComponent = () => {
     });
 
     setTestResults(storedResults);
+    console.log(storedResults);
+  }, []);
+
+  const columns = [
+    { field: 'rank', headerName: '№', width: 60, editable: false },
+    { field: 'logical_processors', headerName: 'Logical Processors', width: 150, editable: false },
+    { field: 'GPU', headerName: 'GPU', width: 150, editable: false },
+    { field: 'OS', headerName: 'Operating System', width: 150, editable: false },
+    { field: 'browser', headerName: 'Browser', width: 150, editable: false },
+    { field: 'total', headerName: 'Total', width: 150, editable: false },
+    { field: 'detailed_info', headerName: 'Detailed Info', width: 150, editable: false }
+  ];
+
+  const sortData = (data, field, ascending = true) => {
+    return data.slice().sort((a, b) => {
+      let comparison = 0;
+      if (a[field] > b[field]) {
+        comparison = 1;
+      } else if (a[field] < b[field]) {
+        comparison = -1;
+      }
+      return ascending ? comparison : comparison * -1;
+    });
+  };
+
+
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('./scores.json');
+        const jsonData = await response.json();
+        setData(sortData(jsonData, 'rank'));
+      } catch (error) {
+        console.log('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
@@ -105,10 +152,29 @@ export const HomePageComponent = () => {
           </div>
         </div>
       </section>
-      <section className="background" style={{height: '500px'}}>
-        
+      <section className="background">
+        <h1 className="best-devices gradient-text">Best scores</h1>
+        <DataGrid
+          rows={data}
+          columns={columns}
+          className="datagrid"
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 3,
+              },
+            },
+          }}
+          pageSizeOptions={[5]}
+          disableRowSelectionOnClick
+          hideFooter
+          hideFooterPagination
+          sx={{ 'border': 'none' }}
+        />
+        <div className="see-more">
+          <button onClick={onSeeMore}>See more</button>
+        </div>
       </section>
     </>
   );
-  
 };
