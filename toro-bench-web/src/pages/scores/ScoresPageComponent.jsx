@@ -2,7 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { DataGrid } from '@mui/x-data-grid';
 import { TestNames } from "../home";
-import { useId } from "react";
+import { fireBaseDB } from "../../firebase/config";
+import { collection, getDocs, addDoc, setDoc, doc } from 'firebase/firestore';
 
 export const BaseData = {
   detailed_info: "detailed_info",
@@ -13,9 +14,12 @@ export const BaseData = {
   OS: "OS",
   browser: "browser",
   total: "total",
+  created: "created",
 };
 
 export const ScoresPageComponent = () => {
+
+  const [data, setData] = useState([]);
 
   const getGPUDetails = () => {
     const canvas = document.createElement('canvas');
@@ -73,67 +77,93 @@ export const ScoresPageComponent = () => {
     return name;
   }
 
-  const [testResults, setTestResults] = useState({});
-  const [data, setData] = useState([]);
-  const newRecordId = useId();
+
+  const fetchScores = async () => {
+    const scoresDB = collection(fireBaseDB, 'scores');
+    const scoresSnapshot = await getDocs(scoresDB);
+    const scoresList = scoresSnapshot.docs.map((score) => ({ ...score.data(), id: score.id }));
+    return scoresList;
+  };
+
+  const postScore = async (scoreResult) => {
+    const scoresDB = collection(fireBaseDB, 'scores');
+    await addDoc(scoresDB, scoreResult);
+  };
+
+  const putScore = async (scoreResult, id) => {
+    const scoresDB = collection(fireBaseDB, 'scores');
+    const scoresDocRef = doc(scoresDB, id);
+    await setDoc(scoresDocRef, scoreResult);
+  };
 
   useEffect(() => {
 
-    const fetchData = async () => {
-      try {
-        const response = await fetch('./scores.json');
-        const jsonData = await response.json();
+    fetchScores().then((scoresList) => {
+      const storedResult = {};
+      var testHasRunned = false;
+      var total = 0;
+      const formattedTime = Intl.DateTimeFormat('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+      }).format(Date.now());
 
-        var currentResultNew = jsonData.some(x => x.detailed_info !== storedResults.detailed_info);
-        if (currentResultNew) {
-          storedResults[BaseData.id] = newRecordId;
-          jsonData.push(storedResults);
+      Object.keys(TestNames).forEach(testName => {
+        const result = localStorage.getItem(testName);
+        if (result) {
+          const valueResult = parseInt(result);
+          total += valueResult;
+          storedResult[testName] = parseInt(valueResult);
+          testHasRunned = true;
         }
-        setData(sortData(jsonData, BaseData.total, false));
-      } catch (error) {
-        console.log('Error fetching data:', error);
-      }
-    };
+      });
 
-    const storedResults = {};
-    var total = 0;
+      storedResult[BaseData.detailed_info] = navigator.userAgent;
+      storedResult[BaseData.logical_processors] = navigator.hardwareConcurrency;
+      storedResult[BaseData.GPU] = getGPUDetails();
+      storedResult[BaseData.OS] = getOSName();
+      storedResult[BaseData.browser] = getBrowserName();
+      storedResult[BaseData.total] = total;
+      storedResult[BaseData.created] = formattedTime;
 
-    Object.keys(TestNames).forEach(testName => {
-      const storedResult = localStorage.getItem(testName);
-      if (storedResult) {
-        total += parseInt(storedResult);
-        storedResults[testName] = parseInt(storedResult);
+      const scoreToUpdate = scoresList.find(x => x.detailed_info === storedResult.detailed_info &&
+        x.GPU === storedResult.GPU &&
+        x.logical_processors === storedResult.logical_processors
+      );
+
+      if (testHasRunned) {
+        scoreToUpdate ? putScore(storedResult, scoreToUpdate.id).then(() => {
+          fetchScores().then((scoresList) => {
+            setData(sortData(scoresList, "total", false));
+          })
+        }) : postScore(storedResult).then(() => {
+          fetchScores().then((scoresList) => {
+            setData(sortData(scoresList, "total", false));
+          })
+        });
       }
+
     });
-
-    storedResults[BaseData.detailed_info] = navigator.userAgent;
-    storedResults[BaseData.logical_processors] = navigator.hardwareConcurrency;
-    storedResults[BaseData.GPU] = getGPUDetails();
-    storedResults[BaseData.OS] = getOSName();
-    storedResults[BaseData.browser] = getBrowserName();
-    storedResults[BaseData.total] = total;
-
-    setTestResults(storedResults);
-    fetchData();
   }, []);
-
 
   const columns = [
     { field: 'rank', headerName: '№', width: 60, editable: false },
+    { field: 'total', headerName: 'Total', width: 150, editable: false },
     { field: 'detailed_info', headerName: 'Detailed Info', width: 150, editable: false },
     { field: 'logical_processors', headerName: 'Logical Processors', width: 150, editable: false },
     { field: 'GPU', headerName: 'GPU', width: 150, editable: false },
     { field: 'OS', headerName: 'Operating System', width: 150, editable: false },
     { field: 'browser', headerName: 'Browser', width: 150, editable: false },
-    { field: 'total', headerName: 'Total', width: 150, editable: false },
     { field: 'JavaScript', headerName: 'JavaScript', width: 150, editable: false },
-    { field: 'layout', headerName: 'Layout', width: 150, editable: false },
+    { field: 'Layout', headerName: 'Layout', width: 150, editable: false },
     { field: 'SVG', headerName: 'SVG', width: 150, editable: false },
-    { field: 'periodic', headerName: 'Periodic', width: 150, editable: false },
-    { field: 'tree', headerName: 'Tree', width: 150, editable: false },
-    { field: 'birds', headerName: 'Birds', width: 150, editable: false },
-    { field: 'invaders', headerName: 'Invaders', width: 150, editable: false },
-    { field: 'collision', headerName: 'Collision', width: 150, editable: false },
+    { field: 'Periodic', headerName: 'Periodic', width: 150, editable: false },
+    { field: 'Tree', headerName: 'Tree', width: 150, editable: false },
+    { field: 'Birds', headerName: 'Birds', width: 150, editable: false },
+    { field: 'Invaders', headerName: 'Invaders', width: 150, editable: false },
+    { field: 'Collision', headerName: 'Collision', width: 150, editable: false },
   ];
 
   const sortData = (data, field, ascending = true) => {
@@ -160,7 +190,6 @@ export const ScoresPageComponent = () => {
 
     return finalData;
   };
-
 
   return (
     <section className="background">

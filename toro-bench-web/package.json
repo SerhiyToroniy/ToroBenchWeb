@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^13.5.0",
     "detect-gpu": "^5.0.38",
     "dropbox": "^10.34.0",
+    "firebase": "^10.8.1",
     "fs": "^0.0.1-security",
     "fs-extra": "^11.2.0",
     "jquery": "^3.7.1",
