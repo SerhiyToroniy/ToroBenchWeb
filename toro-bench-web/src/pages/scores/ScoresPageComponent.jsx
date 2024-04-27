@@ -144,7 +144,9 @@ export const ScoresPageComponent = () => {
           })
         });
       }
-
+      else{
+        setData(sortData(scoresList, "total", false));
+      }
     });
   }, []);
 
@@ -204,7 +206,7 @@ export const ScoresPageComponent = () => {
             },
           },
         }}
-        pageSizeOptions={[5]}
+        pageSizeOptions={[5, 10, 15]}
         disableRowSelectionOnClick
         sx={{ 'border': 'none' }}
       />

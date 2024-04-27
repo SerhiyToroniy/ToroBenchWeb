@@ -3,3 +3,4 @@ export * from './scores';
 export * from './Layout';
 export * from './NotFound';
 export * from './benchmark';
+export * from './tests';

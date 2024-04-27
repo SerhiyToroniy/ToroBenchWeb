@@ -1,0 +1,25 @@
+.test-internet {
+    height: 200px;
+    width: 200px;
+    background-size: contain !important;
+}
+
+.test-container {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    border-top: 1px solid lightgray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+
+    @media(max-width: 576px) {
+        flex-direction: column;
+    }
+}
+
+@media(max-width: 576px) {
+    button {
+        width: 100%;
+    }
+}

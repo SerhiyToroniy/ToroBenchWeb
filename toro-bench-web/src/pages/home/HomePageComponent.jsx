@@ -90,7 +90,6 @@ export const HomePageComponent = () => {
     });
 
     setTestResults(storedResults);
-    console.log(storedResults);
   }, []);
 
   const columns = [

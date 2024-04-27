@@ -22,6 +22,9 @@ export const Layout = () => {
                                 <Link to="/scores" className="nav-link">Scores</Link>
                             </li>
                             <li className="nav-item">
+                                <Link to="/tests" className="nav-link">Other tests</Link>
+                            </li>
+                            <li className="nav-item">
                                 <a href="/pages/benchmark.html" className="nav-link-run">Run</a>
                             </li>
                         </ul>
