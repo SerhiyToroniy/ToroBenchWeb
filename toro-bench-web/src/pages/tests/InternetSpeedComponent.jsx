@@ -7,9 +7,11 @@ export const InternetSpeedComponent = () => {
     const downloadSize = 7300000;
     const testCounter = 5;
     const [downloadSpeed, setDownloadSpeed] = useState(0);
-    const [results, setResults] = useState([]);
+    const [resultsDownload, setResultsDownload] = useState([]);
+    const [resultsUpload, setResultsUpload] = useState([]);
     const [loading, setLoading] = useState(true);
     const [progress, setProgress] = useState(0);
+    const [uploadSpeed, setUploadSpeed] = useState(0);
 
     const measureConnectionSpeed = async () => {
         const download = new Promise((resolve, reject) => {
@@ -30,32 +32,68 @@ export const InternetSpeedComponent = () => {
         return speedMbps;
     };
 
+    const measureUploadSpeed = async () => {
+        const testData = new Array(1000000).fill('x').join('');
+        const formData = new FormData();
+        const blob = new Blob([testData]);
+        formData.append('file', blob);
+
+        try {
+            const startTime = Date.now();
+            const response = await fetch('https://file.io', {
+                method: 'POST',
+                body: formData
+            });
+            const endTime = Date.now();
+
+            if (response.ok) {
+                const duration = (endTime - startTime) / 1000;
+                const speedBps = (blob.size * 8) / duration;
+                const speedMbps = (speedBps / 1024 / 1024).toFixed(2);
+                setUploadSpeed(speedMbps * 8);
+                return speedMbps * 8;
+            } else {
+                console.error('Failed to upload file:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error uploading file:', error);
+        } finally {
+        }
+    };
+
     useEffect(() => {
         const runMeasurements = async () => {
             for (let i = 0; i < testCounter; i++) {
-                const result = await measureConnectionSpeed();
-                setProgress((100 / testCounter) * (i + 2));
-                setResults(prevResults => [...prevResults, result]);
+                const download = await measureConnectionSpeed();
+                const upload = await measureUploadSpeed();
+                setProgress((100 / testCounter) * (i + 1));
+                setResultsDownload(prevResults => [...prevResults, download]);
+                setResultsUpload(prevResults => [...prevResults, upload]);
             }
         };
         runMeasurements();
     }, []);
 
     useEffect(() => {
-        if (results.length === testCounter) {
-            const sum = results.reduce((acc, numStr) => acc + parseFloat(numStr), 0);
-            const average = sum / results.length;
-            setDownloadSpeed(average.toFixed(2));
+        if (resultsDownload.length === testCounter) {
+            const sumDownload = resultsDownload.reduce((acc, numStr) => acc + parseFloat(numStr), 0);
+            const averageDownload = sumDownload / resultsDownload.length;
+            setDownloadSpeed(averageDownload.toFixed(2));
+
+            const sumUpload = resultsUpload.reduce((acc, numStr) => acc + parseFloat(numStr), 0);
+            const averageUpload = sumUpload / resultsUpload.length;
+            setUploadSpeed(averageUpload.toFixed(2));
             setLoading(false);
         }
-    }, [results]);
+    }, [resultsDownload]);
 
     return (
         <section className="background">
-            <h3>Download speed: {downloadSpeed}Mbps</h3>
-            {
-                loading && <LinearProgressWithLabel value={progress} />
-            }
+            <div className="internet-container">
+                <h3>Download speed: {downloadSpeed}Mbps</h3>
+                <h3>Upload speed: {uploadSpeed}Mbps</h3>
+                {loading && <LinearProgressWithLabel value={progress} />}
+            </div>
         </section>
     );
 }

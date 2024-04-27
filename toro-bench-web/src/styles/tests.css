@@ -23,3 +23,14 @@
         width: 100%;
     }
 }
+
+.internet-container {
+    padding: 80px 40px;
+    border-radius: 30px;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0px 0px 50px 1px lightgrey;
+    background-repeat: no-repeat;
+    background-size: contain;
+    text-align: center;
+}
