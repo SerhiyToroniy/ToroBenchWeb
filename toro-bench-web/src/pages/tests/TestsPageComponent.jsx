@@ -22,9 +22,9 @@ export const TestPageComponent = () => {
                     <div style={{ background: 'url("./battery.png")' }} alt="Battery test" className="test-internet"></div>
                 </div>
                 <div className="test--container-info">
-                    <h3>Battery</h3>
+                    <h3>Battery Life</h3>
                     <p>This test evaluates the battery life of your device by running a series of workloads and measuring how long the battery lasts on a single charge.</p>
-                    <button>Open</button>
+                    <button onClick={() => navigate('/battery')}>Open</button>
                 </div>
             </div>
         </section>

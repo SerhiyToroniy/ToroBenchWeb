@@ -12,6 +12,8 @@ export const InternetSpeedComponent = () => {
     const [loading, setLoading] = useState(true);
     const [progress, setProgress] = useState(0);
     const [uploadSpeed, setUploadSpeed] = useState(0);
+    const [pingTimes, setPingTimes] = useState([]);
+    const [jitter, setJitter] = useState(0);
 
     const measureConnectionSpeed = async () => {
         const download = new Promise((resolve, reject) => {
@@ -69,7 +71,10 @@ export const InternetSpeedComponent = () => {
                 setProgress((100 / testCounter) * (i + 1));
                 setResultsDownload(prevResults => [...prevResults, download]);
                 setResultsUpload(prevResults => [...prevResults, upload]);
+
             }
+            const pings = await measurePing();
+            setJitter(calculateJitter(pings));
         };
         runMeasurements();
     }, []);
@@ -87,12 +92,37 @@ export const InternetSpeedComponent = () => {
         }
     }, [resultsDownload]);
 
+    const measurePing = async () => {
+        let times = [];
+        for (let i = 0; i < 10; i++) {
+            const start = Date.now();
+            await fetch(imageAddr + "?ping=" + start);
+            const end = Date.now();
+            times.push((end - start) / 4);
+        }
+        setPingTimes(times);
+        return times;
+    };
+
+    const calculateJitter = (pingTimes) => {
+        if (pingTimes.length < 2) return 0;
+        let diffs = [];
+        for (let i = 1; i < pingTimes.length; i++) {
+            diffs.push(Math.abs(pingTimes[i] - pingTimes[i - 1]));
+        }
+        return (diffs.reduce((a, b) => a + b, 0) / diffs.length).toFixed(2);
+    };
+
     return (
         <section className="background">
+            {loading && <LinearProgressWithLabel value={progress} />}
             <div className="internet-container">
                 <h3>Download speed: {downloadSpeed}Mbps</h3>
                 <h3>Upload speed: {uploadSpeed}Mbps</h3>
-                {loading && <LinearProgressWithLabel value={progress} />}
+            </div>
+            <div className="internet-container">
+                <h3>Ping: {pingTimes.reduce((a, b) => a + b, 0) / pingTimes.length || 0}ms</h3>
+                <h3>Jitter: {jitter}ms</h3>
             </div>
         </section>
     );

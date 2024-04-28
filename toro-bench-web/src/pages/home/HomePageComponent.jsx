@@ -131,6 +131,8 @@ export const HomePageComponent = () => {
     fetchData();
   }, []);
 
+  console.log(testResults)
+
   return (
     <>
       <section className="background">
@@ -145,9 +147,14 @@ export const HomePageComponent = () => {
           </div>
           <div className="info-container">
             <h1>Last Results</h1>
-            {Object.entries(testResults).map(([test, result]) => (
-              <p key={test}><strong>{test}:</strong> {result}</p>
-            ))}
+            {Object.keys(testResults).length !== 0 ?
+              <>
+                {Object.entries(testResults).map(([test, result]) => (
+                  <p key={test}><strong>{test}:</strong> {result}</p>
+                ))}
+              </>
+              :
+              <p>No results yet</p>}
           </div>
         </div>
       </section>

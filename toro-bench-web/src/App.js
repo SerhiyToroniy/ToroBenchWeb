@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { HomePageComponent, ScoresPageComponent, Layout, NotFound, BenchmarkPageComponent, TestPageComponent, InternetSpeedComponent } from './pages';
+import { HomePageComponent, ScoresPageComponent, Layout, NotFound, BenchmarkPageComponent, TestPageComponent, InternetSpeedComponent, BatteryLifeComponent } from './pages';
 
 function App() {
   return (
@@ -13,6 +13,7 @@ function App() {
             <Route path="benchmark" element={<BenchmarkPageComponent />} />
             <Route path="tests" element={<TestPageComponent />} />
             <Route path="internet" element={<InternetSpeedComponent />} />
+            <Route path="battery" element={<BatteryLifeComponent />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
