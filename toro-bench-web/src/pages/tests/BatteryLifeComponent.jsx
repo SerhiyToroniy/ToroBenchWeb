@@ -65,7 +65,6 @@ export const BatteryLifeComponent = () => {
 
     return (
         <section className="background">
-            <h1 className="best-devices gradient-text">Battery Life Test</h1>
             <div className="internet-container" style={{ fontSize: "24px" }}>
                 <h4>Initial Level: {batteryStartLevel}%</h4>
                 <h4>Current Level: {batteryLevel}%</h4>
