@@ -164,7 +164,6 @@ export const ScoresPageComponent = () => {
     { field: 'Periodic', headerName: 'Periodic', width: 150, editable: false },
     { field: 'Tree', headerName: 'Tree', width: 150, editable: false },
     { field: 'Birds', headerName: 'Birds', width: 150, editable: false },
-    { field: 'Invaders', headerName: 'Invaders', width: 150, editable: false },
     { field: 'Collision', headerName: 'Collision', width: 150, editable: false },
   ];
 
