@@ -38,10 +38,6 @@ p {
 .container {
     margin-left: calc(20% - 5px);
     margin-right: 20%;
-
-    @media (max-width: 768px) {
-        margin: 0 15px;
-    }
 }
 
 .nav {
@@ -102,10 +98,6 @@ p {
 
 section {
     padding: 40px 20%;
-
-    @media (max-width: 768px) {
-        padding: 40px 20px;
-    }
 }
 
 .footer {
@@ -120,10 +112,6 @@ section {
 .app-name {
     margin-right: auto;
     font-weight: 900;
-
-    @media (max-width: 768px) {
-        display: none;
-    }
 }
 
 .app-name:hover {
@@ -150,4 +138,18 @@ button:hover {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+}
+
+@media (max-width: 768px) {
+    .container{
+        margin: 0 15px;
+    }
+
+    section {
+        padding: 40px 15px;
+    }
+    
+    .app-name{
+        display: none;
+    }
 }

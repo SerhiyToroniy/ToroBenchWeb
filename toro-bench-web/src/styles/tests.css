@@ -12,16 +12,6 @@
     align-items: center;
     justify-content: center;
     gap: 60px;
-
-    @media(max-width: 576px) {
-        flex-direction: column;
-    }
-}
-
-@media(max-width: 576px) {
-    button {
-        width: 100%;
-    }
 }
 
 .internet-container {
@@ -39,7 +29,18 @@
 .youtube-videos iframe {
     width: 100%;
     height: 400px;
-    @media(max-width: 576px) {
+}
+
+@media (max-width: 576px) {
+    .youtube-videos iframe{
         height: 100%;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    .test-container{
+        flex-direction: column;
     }
 }

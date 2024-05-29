@@ -131,8 +131,6 @@ export const HomePageComponent = () => {
     fetchData();
   }, []);
 
-  console.log(testResults)
-
   return (
     <>
       <section className="background">
