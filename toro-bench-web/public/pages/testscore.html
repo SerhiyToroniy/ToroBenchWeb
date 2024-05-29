@@ -139,11 +139,17 @@
             <div class="totalscore"></div>
             <div id="scoreFrame"></div>
             <div class="button-container">
-                <div class="btn-retry"><a href="/" style="color: white;">Restart</a></div>
+                <div class="btn-retry" id="retryButton"><a href="#" style="color: white;">Restart</a></div>
             </div>
             <div class="infoua" style="display:none;"></div>
         </div>
     </div>
+    <script>
+        document.getElementById('retryButton').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default link behavior
+            window.location.href = 'https://torobenchweb.surge.sh/';
+        });
+    </script>
     <script language="javascript">
         var TestClass = {
             listScoreStar: function () {

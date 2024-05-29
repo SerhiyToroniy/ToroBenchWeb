@@ -163,8 +163,6 @@ export const ScoresPageComponent = () => {
     { field: 'SVG', headerName: 'SVG', width: 150, editable: false },
     { field: 'Periodic', headerName: 'Periodic', width: 150, editable: false },
     { field: 'Tree', headerName: 'Tree', width: 150, editable: false },
-    { field: 'Birds', headerName: 'Birds', width: 150, editable: false },
-    { field: 'Collision', headerName: 'Collision', width: 150, editable: false },
   ];
 
   const sortData = (data, field, ascending = true) => {

@@ -4,8 +4,6 @@ export const Layout = () => {
 
     const navigate = useNavigate();
 
-    const currentYear = new Date().getFullYear();
-
     const onAppNameClick = () => {
         navigate('/');
     }
@@ -36,7 +34,6 @@ export const Layout = () => {
                 <Outlet />
             </main>
 
-            <footer className="footer">&copy; ToroBenchWeb &mdash; {currentYear}. All rights reserved.</footer>
         </>
     );
 };

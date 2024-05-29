@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import NoSleep from 'nosleep.js';
+import useWakeLock from './useWakeLock';
 
 export const BatteryLifeComponent = () => {
     const [batteryLevel, setBatteryLevel] = useState(0);
@@ -6,37 +8,33 @@ export const BatteryLifeComponent = () => {
     const [batteryDrop, setBatteryDrop] = useState(0);
     const [elapsedTime, setElapsedTime] = useState(0);
     const [intervalId, setIntervalId] = useState(null);
+    useWakeLock();
 
     useEffect(() => {
-        let wakeLock = null;
-        const requestWakeLock = async () => {
-            try {
-                wakeLock = await navigator.wakeLock.request('screen');
-            } catch (err) {
-                console.error(`${err.name}, ${err.message}`);
-            }
-        };
-
-        requestWakeLock();
-
-        return () => {
-            wakeLock && wakeLock.release();
-        };
-    }, []);
+        var noSleep = new NoSleep();
+        noSleep.enable();
+    }, [elapsedTime]);
 
     const videoUrl = "https://www.youtube.com/embed/LXb3EKWsInQ?autoplay=1&mute=1&loop=1&playlist=LXb3EKWsInQ";
 
     useEffect(() => {
         const getBattery = async () => {
-            const battery = await navigator.getBattery();
-            setBatteryLevel(battery.level * 100);
-            setBatteryStartLevel((battery.level * 100).toFixed(0));
-            const startLevel = (battery.level * 100).toFixed(0);
-
-            battery.addEventListener('levelchange', () => {
+            if (navigator.getBattery) {
+                const battery = await navigator.getBattery();
                 setBatteryLevel((battery.level * 100).toFixed(0));
-                setBatteryDrop(((startLevel - battery.level * 100)).toFixed(0));
-            });
+                setBatteryStartLevel((battery.level * 100).toFixed(0));
+                const startLevel = (battery.level * 100).toFixed(0);
+
+                battery.addEventListener('levelchange', () => {
+                    setBatteryLevel((battery.level * 100).toFixed(0));
+                    setBatteryDrop(((startLevel - battery.level * 100)).toFixed(0));
+                });
+            } else {
+                console.warn("Battery Status API is not supported on this device.");
+                setBatteryLevel("N/A");
+                setBatteryStartLevel("N/A");
+                setBatteryDrop("N/A");
+            }
         };
 
         getBattery();
@@ -53,22 +51,33 @@ export const BatteryLifeComponent = () => {
 
     useEffect(() => {
         const startTime = Date.now();
-        setIntervalId(setInterval(() => {
+        const id = setInterval(() => {
             const currentTime = Date.now();
             setElapsedTime(currentTime - startTime);
-        }, 1000));
+        }, 1000);
+        setIntervalId(id);
 
         return () => {
-            clearInterval(intervalId);
+            clearInterval(id);
         };
     }, []);
 
     return (
         <section className="background">
-            <div className="internet-container" style={{ fontSize: "24px" }}>
-                <h4>Initial Level: {batteryStartLevel}%</h4>
-                <h4>Current Level: {batteryLevel}%</h4>
-                <h4>Drop: {batteryDrop}%</h4>
+            <script src="../NoSleep.min.js"></script>
+            <div className="internet-container" style={{ fontSize: "24px", marginTop: 0 }}>
+                {
+                    batteryLevel === "N/A" ?
+                        <>
+                            <p>Detailed battery information is not supported by your browser☠️💀😥. <br /></p>
+                        </>
+                        :
+                        <>
+                            <h4>Initial Level: {batteryStartLevel}%</h4>
+                            <h4>Current Level: {batteryLevel}%</h4>
+                            <h4>Drop: {batteryDrop}%</h4>
+                        </>
+                }
                 <h4>Elapsed Time: {formatTime(elapsedTime)}</h4>
                 <div className="youtube-videos">
                     {Array.from({ length: 3 }).map((_, index) => (
