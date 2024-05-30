@@ -153,6 +153,7 @@
     <script language="javascript">
         var TestClass = {
             listScoreStar: function () {
+                debugger
                 var scores = parent.window.scores;
                 var displays = parent.window.displays;
                 total = 0;
@@ -173,7 +174,11 @@
                     )
                 }
                 m.show();
-                $('.totalscore').html('<span>' + total + '</span>');
+                let sum = 0;
+                numbers.forEach(num => {
+                    sum += num;
+                });
+                $('.totalscore').html('<span>' + sum + '</span>');
 
 
                 $('.infoua').show().html(navigator.userAgent);
