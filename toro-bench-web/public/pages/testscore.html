@@ -145,7 +145,7 @@
         </div>
     </div>
     <script>
-        document.getElementById('retryButton').addEventListener('click', function(event) {
+        document.getElementById('retryButton').addEventListener('click', function (event) {
             event.preventDefault(); // Prevent the default link behavior
             window.location.href = 'https://torobenchweb.surge.sh/';
         });
@@ -174,10 +174,15 @@
                     )
                 }
                 m.show();
-                let sum = 0;
-                numbers.forEach(num => {
-                    sum += num;
-                });
+
+                const sum = scores.reduce((acc, curr) => {
+                    if (Number.isNaN(curr)) {
+                        return acc;
+                    } else {
+                        return acc + curr;
+                    }
+                }, 0);
+
                 $('.totalscore').html('<span>' + sum + '</span>');
 
 
