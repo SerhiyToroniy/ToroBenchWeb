@@ -117,12 +117,18 @@ export const InternetSpeedComponent = () => {
         <section className="background">
             {loading && <LinearProgressWithLabel value={progress} />}
             <div className="internet-container">
-                <h3>Download speed: {downloadSpeed}Mbps</h3>
-                <h3>Upload speed: {uploadSpeed}Mbps</h3>
+                <h3>Швидкість завантаження: {downloadSpeed} Мбіт/с
+
+
+</h3>
+                <h3>Швидкість відвантаження: {uploadSpeed} Мбіт/с
+
+
+</h3>
             </div>
             <div className="internet-container">
-                <h3>Ping: {pingTimes.reduce((a, b) => a + b, 0) / pingTimes.length || 0}ms</h3>
-                <h3>Jitter: {jitter}ms</h3>
+                <h3>Пінг: {pingTimes.reduce((a, b) => a + b, 0) / pingTimes.length || 0} мс</h3>
+                <h3>Джитер: {jitter} мс</h3>
             </div>
         </section>
     );

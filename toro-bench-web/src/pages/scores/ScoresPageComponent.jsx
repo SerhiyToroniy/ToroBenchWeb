@@ -152,12 +152,12 @@ export const ScoresPageComponent = () => {
 
   const columns = [
     { field: 'rank', headerName: '№', width: 60, editable: false },
-    { field: 'total', headerName: 'Total', width: 150, editable: false },
-    { field: 'detailed_info', headerName: 'Detailed Info', width: 150, editable: false },
-    { field: 'logical_processors', headerName: 'Logical Processors', width: 150, editable: false },
-    { field: 'GPU', headerName: 'GPU', width: 150, editable: false },
-    { field: 'OS', headerName: 'Operating System', width: 150, editable: false },
-    { field: 'browser', headerName: 'Browser', width: 150, editable: false },
+    { field: 'total', headerName: 'Загальний бал', width: 150, editable: false },
+    { field: 'detailed_info', headerName: 'Детальніше про пристрій', width: 150, editable: false },
+    { field: 'logical_processors', headerName: 'К-сть логічних процесорів', width: 150, editable: false },
+    { field: 'GPU', headerName: 'Відеокарта', width: 150, editable: false },
+    { field: 'OS', headerName: 'Операційна система', width: 150, editable: false },
+    { field: 'browser', headerName: 'Браузер', width: 150, editable: false },
     { field: 'JavaScript', headerName: 'JavaScript', width: 150, editable: false },
     { field: 'Layout', headerName: 'Layout', width: 150, editable: false },
     { field: 'SVG', headerName: 'SVG', width: 150, editable: false },
@@ -192,7 +192,7 @@ export const ScoresPageComponent = () => {
 
   return (
     <section className="background">
-      <h1 className="best-devices gradient-text">Scores</h1>
+      <h1 className="best-devices gradient-text">Результати</h1>
       <DataGrid
         rows={data}
         columns={columns}

@@ -137,14 +137,14 @@ export const HomePageComponent = () => {
         <img src={'./img/home_header.jpg'} />
         <div className="info">
           <div className="info-container">
-            <h1>Device Info</h1>
-            <p><strong>Number of logical processors:</strong> {navigator.hardwareConcurrency}</p>
-            <p><strong>GPU:</strong> {getGPUDetails()}</p>
-            <p><strong>OS:</strong> {getOSName()}</p>
-            <p><strong>Browser:</strong> {getBrowserName()}</p>
+            <h1>Інформація про пристрій</h1>
+            <p><strong>Кількість логічних процесорів:</strong> {navigator.hardwareConcurrency}</p>
+            <p><strong>Відеокарта:</strong> {getGPUDetails()}</p>
+            <p><strong>Операційна система:</strong> {getOSName()}</p>
+            <p><strong>Браузер:</strong> {getBrowserName()}</p>
           </div>
           <div className="info-container">
-            <h1>Last Results</h1>
+            <h1>Останні результати</h1>
             {Object.keys(testResults).length !== 0 ?
               <>
                 {Object.entries(testResults).map(([test, result]) => (
@@ -152,12 +152,12 @@ export const HomePageComponent = () => {
                 ))}
               </>
               :
-              <p>No results yet</p>}
+              <p>Ще немає результатів</p>}
           </div>
         </div>
       </section>
       <section className="background">
-        <h1 className="best-devices gradient-text">Best scores</h1>
+        <h1 className="best-devices gradient-text">Найкращі результати</h1>
         <DataGrid
           rows={data}
           columns={columns}
@@ -176,7 +176,7 @@ export const HomePageComponent = () => {
           sx={{ 'border': 'none' }}
         />
         <div className="see-more">
-          <button onClick={onSeeMore}>See more</button>
+          <button onClick={onSeeMore}>Детальніше</button>
         </div>
       </section>
     </>

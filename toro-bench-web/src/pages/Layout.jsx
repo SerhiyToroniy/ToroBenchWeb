@@ -17,13 +17,13 @@ export const Layout = () => {
                         <div className="app-name" onClick={onAppNameClick}>ToroBenchWeb</div>
                         <ul className="nav-list">
                             <li className="nav-item">
-                                <Link to="/scores" className="nav-link">Scores</Link>
+                                <Link to="/scores" className="nav-link">Результати</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/tests" className="nav-link">Other tests</Link>
+                                <Link to="/tests" className="nav-link">Додаткові тести</Link>
                             </li>
                             <li className="nav-item">
-                                <a href="/pages/benchmark.html" className="nav-link-run">Run</a>
+                                <a href="/pages/benchmark.html" className="nav-link-run">Пуск</a>
                             </li>
                         </ul>
                     </nav>

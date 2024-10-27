@@ -69,16 +69,16 @@ export const BatteryLifeComponent = () => {
                 {
                     batteryLevel === "N/A" ?
                         <>
-                            <p>Detailed battery information is not supported by your browser☠️💀😥. <br /></p>
+                            <p>Детальна інформація про акумулятор не підтримується вашим браузером☠️💀😥. <br /></p>
                         </>
                         :
                         <>
-                            <h4>Initial Level: {batteryStartLevel}%</h4>
-                            <h4>Current Level: {batteryLevel}%</h4>
-                            <h4>Drop: {batteryDrop}%</h4>
+                            <h4>Початковий рівень заряду: {batteryStartLevel}%</h4>
+                            <h4>Поточний рівень заряду: {batteryLevel}%</h4>
+                            <h4>Рівень розряду: {batteryDrop}%</h4>
                         </>
                 }
-                <h4>Elapsed Time: {formatTime(elapsedTime)}</h4>
+                <h4>Пройдений час: {formatTime(elapsedTime)}</h4>
                 <div className="youtube-videos">
                     {Array.from({ length: 3 }).map((_, index) => (
                         <iframe
